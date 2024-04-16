@@ -25,6 +25,7 @@ copyfile(overview_table_input_file, [folder_routine_exec '\' overview_table_inpu
 toc
 fprintf('\n-- %s.m completed. --\n',mfilename);
 
+cd Routine_execution
 
 function prepare_folder(folder)
 %PREPARE_FOLDER makes sure a folder of given path and name exists and is

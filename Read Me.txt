@@ -1,0 +1,50 @@
+--- FOLDER MMB_replication CONTENT: ---
+File/Folder > Content
+replication > Folder with the current state of the directory of replication models. For each model, there is a folder containing all files necessary for running the model in dynare. The respective folder carries the name of the model. Model names are as in the MMB. Not all models in here actually run. More info on that is found in .xlsx files described below.
+Research_routine > Folder with the research routine of Prof. Alexander Meyer-Gohde and Johanna Saecker. The file "mmb_loop_Max.m" has been updated by me.
+create_test_environment > Script file that creates a new folder in which the research routine from the folder 'Research_routine' is copied into together with the required input file and the model replication directory. This is designed such that the replication directory stays clean.
+overview_out.xlsx > File containing info on the content of the replication directory 'replication'. Each row corresponds to a MMB model.
+overview_out_out.xlsx > File containing info on the execution of the research routine.
+mmb-rep-master > Github repository folder from which replication models have been taken and added to the new replication directory
+models > folder with MMB models from which replication models have been produced
+First_Run_AMG_JS.mat > results file from a current execution of 'mmb_loop_Max.m'
+
+--- FURTHER INFORMATION ON SELECTED CONTENTS: ---
+'mmb_loop_Max.m'
+Updates to the file are commented each starting with "MTCHANGE:".
+Main updates include: 
+    1) that the loop script takes as input an excel table 'overview_out.xlsx' that must contain 
+a column 'model_name' with names of MMB models and a column 'model_folder_exists' with 1/0 
+indicating whether the model shall be included in the analysis or not. The input file 'overview_out.xlsx'
+is expected in the folder that also hosts the mmb_loop_Max.m file.
+    2) that a try catch block was added around the dynare model evaluation and subsequent result
+calculations. That way, the entire loop runs through even though an error might occur during
+the analysis of a model.
+    3) that the loop script exports an excel file 'overview_out_out.xlsx' that reports potentially thrown errors for each model that has been executed. The according column is named "error".
+
+'overview_out.xlsx'
+Column descriptions:
+model name > name of the model in the MMB
+model_folder_exists > whether or not a folder to the model exists in the replication directory / this column is used to determine, over which set of models the "mmb_loop_Max.m" routine runs
+copyexitstatus > overview, which kind of files have been copied into the replication directory upon its creation
+aL_vers > whether or not the respective model contains adaptive learning
+rep_mod_file > information from which folder the file was copied into the replication directory 'replication'.
+rep_is_expected_mod_file > whether or not the model respective .mod file mmb-rep-master\MODELNAME\MODELNAME_rep\MODELNAME_rep.mod exists
+rep_is_MT_made_from_mmb_version > whether or not the replication file was made out of a MMB model version
+rep_is_auto_copy_rep_dir_text_match > whether or not the replication file was automatically found via a text search for the MODELNAME in the folder 'mmb-rep-master'
+rep_is_man_copy_rep_dir > whether or not the replication file was manually found in 'mmb-rep-master' and simply copied
+rep_is_man_copy_and_adapted_rep_dir > whether or not the replication file was manually found in 'mmb-rep-master' and slight adjustments have been made such that the file still runs
+ststf_exists > whether or not the model contains a steadysteate file
+steadystate_file > from where the steady state file came
+other_sidefiles > semicolon separated list of further files that have been copied to the replication folder, which are required for running the model
+rep_comment > comments on the files added to the replication directory
+manual_adaption_comment > comments on manual adaption to model files
+sidef_entered > whether the model contains one/possibliy many sidefiles or none.
+
+---Running----
+1) Run create_test_environment.m, this creates a folder for your running, Routine_execution
+
+2) If you want to run the full set of model (some models don't work), run mmb_loop_Max.m
+   This give you the overview_out_out.xlsx where you can see the models with error
+
+3) After having  overview_out_out.xlsx, you can run mmb_loop_Max_worked_models which only run with worked models
