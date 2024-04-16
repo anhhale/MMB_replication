@@ -106,7 +106,8 @@ clearvars -except loop_k loop_n loop_start loop_end iter_count model_indexes ot 
 
 end
 % MTCHANGE: Export info on errors in overview table
-ot = movevars(ot,"error","error_flag","After","copyexitstatus");
+ot = movevars(ot,"error ","After","copyexitstatus");
+ot = movevars(ot,"error_flag","After","error");
 writetable(ot,'overview_out_out.xlsx','Sheet','Info');
 % MTCHANGE: save results outside of the foor loop
 clearvars -except AMG_JS_Results YourPath mmb_vec run_time_reps newton_options
