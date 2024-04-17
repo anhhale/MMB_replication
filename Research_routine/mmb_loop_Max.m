@@ -85,13 +85,14 @@ try
     [errors] = dsge_practical_forward_errors_matrix_quadratic(matrix_quadratic);
     AMG_JS_Results(2,3:5,loop_k)=errors([4,7,8],1)';
     ot.error_flag(strcmp(ot.model_name,mmb_vec{loop_k})) = 0;
+    ot.error(strcmp(ot.model_name,mmb_vec{loop_k})) = string("N/A");
     catch
     AMG_JS_Results(2,3:5,loop_k)=NaN(1,3);
     end
     
 catch ME
     ot.error(strcmp(ot.model_name,mmb_vec{loop_k})) = string(process_exception(ME));
-     ot.error_flag(strcmp(ot.model_name,mmb_vec{loop_k})) = 1;
+    ot.error_flag(strcmp(ot.model_name,mmb_vec{loop_k})) = 1;
     warning('ERROR caught in model %s\n\n', mmb_vec{loop_k})
 end
 
@@ -106,7 +107,7 @@ clearvars -except loop_k loop_n loop_start loop_end iter_count model_indexes ot 
 
 end
 % MTCHANGE: Export info on errors in overview table
-ot = movevars(ot,"error ","After","copyexitstatus");
+ot = movevars(ot,"error","After","copyexitstatus");
 ot = movevars(ot,"error_flag","After","error");
 writetable(ot,'overview_out_out.xlsx','Sheet','Info');
 % MTCHANGE: save results outside of the foor loop
