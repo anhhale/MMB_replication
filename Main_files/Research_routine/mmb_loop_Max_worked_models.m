@@ -82,11 +82,12 @@ try
     X_dynare=ALPHA_ZS_dynare;
     matrix_quadratic.X=ALPHA_ZS_dynare;
     try
-    [errors] = dsge_practical_forward_errors_matrix_quadratic(matrix_quadratic);
-    AMG_JS_Results(2,3:5,loop_k)=errors([4,7,8],1)';
+    if M_.endo_nbr>100; [errors]=dsge_backward_errors_condition_sparse_minimal(matrix_quadratic); else [errors]=dsge_backward_errors_condition_full(matrix_quadratic);end
+    AMG_Results(3:end,1:5,loop_k)=errors;
     ot.error_flag(strcmp(ot.model_name,mmb_vec{loop_k})) = 0;
+    ot.error(strcmp(ot.model_name,mmb_vec{loop_k})) = string("N/A");
     catch
-    AMG_JS_Results(2,3:5,loop_k)=NaN(1,3);
+    AMG_Results(3:end,1:5,loop_k)=NaN(15,5);
     end
     
 catch ME
