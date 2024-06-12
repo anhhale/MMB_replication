@@ -91,7 +91,7 @@ try
     
 catch ME
     ot.error(strcmp(ot.model_name,mmb_vec{loop_k})) = string(process_exception(ME));
-     ot.error_flag(strcmp(ot.model_name,mmb_vec{loop_k})) = 1;
+    ot.error_flag(strcmp(ot.model_name,mmb_vec{loop_k})) = 1;
     warning('ERROR caught in model %s\n\n', mmb_vec{loop_k})
 end
 
