@@ -37,7 +37,7 @@ mmb_vec= ot.model_name(logical(ot.error_flag==0 &  ot.model_folder_exists==1));
 
 loop_n=size(mmb_vec,1);
 % MTCHANGE: preallocate with nan instead of zeros
-AMG_JS_Results=nan(8,7,loop_n);
+AMG_Results=nan(17,7,loop_n);
 
 % MTCHANGE: add variable start and end to looping (also change in for loop
 % start)
@@ -65,16 +65,16 @@ cd([YourPath '\replication\' mmb_vec{loop_k}])
 try
     %run dynare
     %dynare ([mmb_vec{k} '_rep']) 
-    eval(['dynare ', mmb_vec{loop_k}, '_rep noclearall nograph nostrict nolog'])
+    eval(['dynare ', mmb_vec{loop_k}, '_rep noclearall nograph nostrict  nolog'])
     %%%%% current problem: dynare_to_matrix_quadratic needs to be located in
     %%%%% mmb-rep-folders (e.g. BRA_SAMBA08_rep)
-    AMG_JS_Results(1,:,loop_k)=[M_.nstatic, M_.nfwrd, M_.npred, M_.nboth, M_.nsfwrd, M_.nspred, M_.ndynamic];
+    AMG_Results(1,:,loop_k)=[M_.nstatic, M_.nfwrd, M_.npred, M_.nboth, M_.nsfwrd, M_.nspred, M_.ndynamic];
     
     
     [matrix_quadratic, jacobia_]=create_reduced_matrix_quadratic_from_dynare(M_,oo_);
     
     %tic; [info, oo_, options_]  = stoch_simul(M_, options_, oo_, var_list_); toc    
-     tic; for jj=1:run_time_reps; [dr,info] = dyn_first_order_solver(jacobia_,M_,oo_.dr,options_,0); end;   AMG_JS_Results(2,1,loop_k) = toc/run_time_reps;   
+     tic; for jj=1:run_time_reps; [dr,info] = dyn_first_order_solver(jacobia_,M_,oo_.dr,options_,0); end;   AMG_Results(2,1,loop_k) = toc/run_time_reps;   
     
      
      
