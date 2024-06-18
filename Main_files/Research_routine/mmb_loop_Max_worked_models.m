@@ -103,7 +103,7 @@ fprintf('End of iteration %1$3.i of %2$3.i, Model: %3$s, Completion: %4$3.1f %%\
         iter_count,numel(model_indexes),mmb_vec{loop_k},100*(iter_count)/(numel(model_indexes)))
 %save certain results somewhere
 % MTCHANGE: include loop_start, loop_end, iter_count and model_indexes, include ot
-clearvars -except loop_k loop_n loop_start loop_end iter_count model_indexes ot AMG_JS_Results YourPath mmb_vec run_time_reps newton_options
+clearvars -except loop_k loop_n loop_start loop_end iter_count model_indexes ot AMG_Results YourPath mmb_vec run_time_reps newton_options
 
 end
 % MTCHANGE: Export info on errors in overview table
