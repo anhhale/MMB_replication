@@ -36,7 +36,7 @@ fprintf('\n-- %s.m completed. --\n',mfilename);
 cd Routine_execution
 mmb_loop_example;
 %%%%%Choose to run again with only big model
-run_worked_model=1; % 1 if you want to run big model 
+run_worked_model=0; % 1 if you want to run big model 
 
 if run_worked_model==1
 mmb_loop_example_worked_models;
