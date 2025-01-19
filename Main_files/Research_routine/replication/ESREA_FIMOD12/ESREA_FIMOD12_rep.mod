@@ -1576,7 +1576,7 @@ end;
 // Calculate steady state
 // ###################################################################### 
 
-resid(1);
+resid;
 // steady(solve_algo=0);
 steady;
 //initialss = oo_.steady_state;
